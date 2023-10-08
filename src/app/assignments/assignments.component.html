@@ -1,0 +1,46 @@
+
+<h1>{{title}}</h1>
+
+
+<!-- [ngClass]="{ rendu: assignment.rendu, nonRendu: !assignment.rendu }"
+<div *ngFor="let assignment of assignments" [style.color] = "getColor(assignment.rendu)">
+
+  <p *ngIf="assignment.rendu; else nonSoumis">
+    Devoir intitulé {{ assignment.nom }}, a rendre le
+    {{ assignment.dateDeRendu }}, soumis par l'élève : {{ assignment.rendu }}
+  </p>
+  <ng-template #nonSoumis>
+    <p>Le devoir {{ assignment.nom }} <b>n'a pas n'a pas été rendu</b>.</p>
+  </ng-template>
+</div>-->
+
+<b>{{title}}</b>
+
+<!-- [style.color] = "getColor(assignment.rendu)" -->
+<main class = "container" *ngIf="!formVisible">
+  <button mat-flat-button color="accent" class ="ajouterBtn" (click)="onAddAssignmentBtnClick()">
+    Ajouter Devoir
+  </button>
+<mat-list *ngFor="let assignment of assignments" #assignments >
+  
+  <mat-list-item (click)="onAssignementClick(assignment)" [ngClass]="{ rendu: assignment.rendu, nonRendu: !assignment.rendu }">
+  <p *ngIf="assignment.rendu; else nonSoumis">
+    Devoir intitulé {{ assignment.nom }}
+  </p>
+  <ng-template #nonSoumis>
+    <p>Le devoir {{ assignment.nom }} </p>
+  </ng-template>
+  
+</mat-list-item>
+<!-- <h3 mat-subheader>Date limite de rendu :{{ assignment.dateDeRendu | date  }} </h3>-->
+<mat-divider></mat-divider>
+</mat-list>
+
+
+
+
+</main>
+
+<app-component-details [assignementTransmis]="assignmentSelectionne" *ngIf="!formVisible"></app-component-details>
+<app-add-assignement (nouvelAssignment)="onNouvelAssignment($event)" *ngIf="formVisible" ></app-add-assignement>
+

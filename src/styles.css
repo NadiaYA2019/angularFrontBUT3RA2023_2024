@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 20px; font-family: 'Times New Roman', Times, serif, "Helvetica Neue", sans-serif; }
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/*
+https://material.angular.io/guide/theming#using-a-pre-built-theme
+*/
+h1 {
+    color: rebeccapurple;
+}

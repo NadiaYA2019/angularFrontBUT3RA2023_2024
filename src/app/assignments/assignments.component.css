@@ -1,0 +1,25 @@
+
+
+.container {
+    display:flex;
+    flex-direction: column;
+    margin:5px;
+ }
+ .rendu {
+    padding:0px;
+    width: 80%;
+    color:green;  
+    background-color: yellow;  
+ }
+ 
+ .nonRendu {
+     padding:0px;
+     width: 80%;
+     color:'red';
+    
+     
+ }
+ .ajouterBtn {
+
+    align-self : flex-end;
+ }

@@ -1,0 +1,10 @@
+
+
+<div id="bottom">
+<mat-card *ngIf="assignementTransmis">
+    <mat-card-title>{{assignementTransmis.nom | uppercase }}</mat-card-title>
+    <mat-card-subtitle>Date de rendu :{{ assignementTransmis.dateDeRendu | date  }}</mat-card-subtitle>
+    <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignmentRendu()"> Assignment Rendu</mat-checkbox>
+</mat-card>
+
+</div>
