@@ -32,7 +32,6 @@
   </ng-template>
   
 </mat-list-item>
-<!-- <h3 mat-subheader>Date limite de rendu :{{ assignment.dateDeRendu | date  }} </h3>-->
 <mat-divider></mat-divider>
 </mat-list>
 
@@ -41,6 +40,6 @@
 
 </main>
 
-<app-component-details [assignementTransmis]="assignmentSelectionne" *ngIf="!formVisible"></app-component-details>
+<app-component-details [assignementTransmis]="assignmentSelectionne" (assignmentRendu)="onAssignmentRendu($event)" (deleteAssignment)="onDeleteAssignment(assignmentSelectionne.nom)"   *ngIf="!formVisible && assignmentSelectionne"></app-component-details>
 <app-add-assignement (nouvelAssignment)="onNouvelAssignment($event)" *ngIf="formVisible" ></app-add-assignement>
 

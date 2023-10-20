@@ -1,10 +1,12 @@
 
 
-<div id="bottom">
-<mat-card *ngIf="assignementTransmis">
+<div id="bottom" *ngIf="assignementTransmis">
+<mat-card >
     <mat-card-title>{{assignementTransmis.nom | uppercase }}</mat-card-title>
     <mat-card-subtitle>Date de rendu :{{ assignementTransmis.dateDeRendu | date  }}</mat-card-subtitle>
-    <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignmentRendu()"> Assignment Rendu</mat-checkbox>
+    <mat-checkbox *ngIf="!assignementTransmis.rendu" (click)="onAssignmentRendu()"> 
+                     Assignment Rendu</mat-checkbox>
+   
 </mat-card>
-
+        <button mat-raised-button color="warn" (click)="onDeleteAssignment()">DELETE</button>
 </div>

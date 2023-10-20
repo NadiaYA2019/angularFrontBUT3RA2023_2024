@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { FormsModule } from '@angular/forms';
-import { RenduDirective } from './shared/rendu.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -22,7 +21,6 @@ import { AddAssignementComponent } from './assignments/add-assignement/add-assig
   declarations: [
     AppComponent,
     AssignmentsComponent,
-    RenduDirective,
     ComponentDetailsComponent,
     AddAssignementComponent,
   ],
