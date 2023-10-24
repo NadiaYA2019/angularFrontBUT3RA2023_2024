@@ -11,53 +11,51 @@ import { AssignmentsService } from '../shared/assignments.service';
 export class AssignmentsComponent implements OnInit {
   title = 'Liste des devoirs BUT 3 - RA !!!';
   //form
-  
-  assignmentSelectionne !: Assignment | null ;
+
+  assignmentSelectionne !: Assignment | null;
   formVisible = false;
   assignments!: Assignment[];
 
-  constructor(private assignmentService:AssignmentsService){
+  constructor(private assignmentService: AssignmentsService) {
 
   }
 
-  
+
   ngOnInit() {
-  
+
     //this.assignments = this.assignmentService.getAssignments();
     this.getAssignments();
-    
+
   }
-  
-  getAssignments(){
+
+  getAssignments() {
     this.assignmentService.getAssignments().
-      subscribe(assignments=>this.assignments = assignments);
+      subscribe(assignments => this.assignments = assignments);
   }
 
   onAssignementClick(assignment: Assignment) {
     this.assignmentSelectionne = assignment;
   }
   onAddAssignmentBtnClick() {
-    this.formVisible =true;
+    this.formVisible = true;
   }
-  onNouvelAssignment(event:Assignment)
-  {
+  onNouvelAssignment() {
     //this.assignments.push(event); 
-    this.assignmentService.addAssignment(event)
-        .subscribe(message=> console.log(message));
+
     this.formVisible = false; // revoir la liste
   }
-  onAssignmentRendu(nom: string){
-    
-    this.assignmentService.updateAssignment(nom)
-          .subscribe(message=> console.log(message));
+  onAssignmentRendu(nom: string) {
+
+    // this.assignmentService.updateAssignment(nom)
+    // .subscribe(message => console.log(message));
     //const index = this.assignments.findIndex(elt => elt.nom === nom);
     //console.log(index);
     //this.assignments[index].rendu = true;
   }
   onDeleteAssignment(nom: string) {
-    this.assignmentService.deleteAssignment(nom)
-        .subscribe(message=> console.log(message));
-    this.assignmentSelectionne = null;
+    // this.assignmentService.deleteAssignment(nom)
+    // .subscribe(message => console.log(message));
+    //this.assignmentSelectionne = null;
   }
-  
+
 }
