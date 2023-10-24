@@ -44,27 +44,35 @@ export class AssignmentsService {
 
   constructor() { }
 
-  getAssignments(): Observable<Assignment[]> {
-    return of(this.assignments);
-  }
+  //getAssignments(): Observable<Assignment[]> {
+  //return of(this.assignments);
+  // }
 
-  addAssignment(assignment: Assignment): Observable<string> {
-    this.assignments.push(assignment);
-    return of('Assignment service: Assignment Ajouté');
+  addAssignment(assignment: Assignment) {
+    const assignments = this.assignments.getValue()
+    assignments.push(assignment);
+    this.assignments.next(assignments);
+    console.log("add assignments");
 
   }
-  updateAssignment(nom: string): Observable<string> {
-    const index = this.assignments.findIndex(elt => elt.nom === nom);
+  updateAssignment(nom: string) {
+    const assignments = this.assignments.getValue();
+    const index = assignments.findIndex(elt => elt.nom === nom);
     console.log(index);
-    this.assignments[index].rendu = true;
-    return of("Assignment service: assignment modifié")
+    assignments[index].rendu = true;
+    this.assignments.next(assignments);
+    console.log("update one assignment")
+    //return of("Assignment service: assignment modifié")
   }
 
-  deleteAssignment(assignment: Assignment): Observable<string> {
-    const index = this.assignments.findIndex(elt => elt.nom === assignment.nom);
+  deleteAssignment(assignment: Assignment) {
+    const assignments = this.assignments.getValue();
+    const index = assignments.findIndex(elt => elt.nom === assignment.nom);
     //console.log(index);
-    this.assignments.splice(index, 1);
-    return of("Assignment service: Assignment supprimé");
+    assignments.splice(index, 1);
+    this.assignments.next(assignments);
+    console.log("delete one assignment")
+    //return of("Assignment service: Assignment supprimé");
 
   }
 

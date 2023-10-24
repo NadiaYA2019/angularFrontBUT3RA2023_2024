@@ -23,8 +23,7 @@ export class AddAssignementComponent {
     newAssigment.nom = this.nomDevoir;
     newAssigment.dateDeRendu = this.dateDeRendu;
     newAssigment.rendu = false;
-    this.assignmentService.addAssignment(newAssigment)
-      .subscribe(message => console.log(message));
+    this.assignmentService.addAssignment(newAssigment);
     this.nouvelAssignment.emit();
   }
 }

@@ -40,6 +40,6 @@
 
 </main>
 
-<app-component-details [assignementTransmis]="assignmentSelectionne"
+<app-component-details [assignementTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment()"
   *ngIf="!formVisible && assignmentSelectionne"></app-component-details>
 <app-add-assignement (nouvelAssignment)="onNouvelAssignment()" *ngIf="formVisible"></app-add-assignement>

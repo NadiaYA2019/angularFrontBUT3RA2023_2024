@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { reduce } from 'rxjs';
+import { reduce, Subscription } from 'rxjs';
 import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../shared/assignments.service';
 @Component({
@@ -16,22 +16,32 @@ export class AssignmentsComponent implements OnInit {
   formVisible = false;
   assignments!: Assignment[];
 
+  subscriptions: Subscription[] = [];
+
   constructor(private assignmentService: AssignmentsService) {
 
   }
-
+  ngOnDestroy(): void {
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 
   ngOnInit() {
 
     //this.assignments = this.assignmentService.getAssignments();
-    this.getAssignments();
+    //this.getAssignments();
+    let subscription = this.assignmentService.assignments.subscribe(
+      (assignments) => (this.assignments = assignments)
+    );
+    this.subscriptions.push(subscription);
 
   }
 
-  getAssignments() {
-    this.assignmentService.getAssignments().
-      subscribe(assignments => this.assignments = assignments);
-  }
+  //getAssignments() {
+  //this.assignmentService.getAssignments().
+  //subscribe(assignments => this.assignments = assignments);
+  //}
 
   onAssignementClick(assignment: Assignment) {
     this.assignmentSelectionne = assignment;
@@ -52,10 +62,10 @@ export class AssignmentsComponent implements OnInit {
     //console.log(index);
     //this.assignments[index].rendu = true;
   }
-  onDeleteAssignment(nom: string) {
+  onDeleteAssignment() {
     // this.assignmentService.deleteAssignment(nom)
     // .subscribe(message => console.log(message));
-    //this.assignmentSelectionne = null;
+    this.assignmentSelectionne = null;
   }
 
 }
