@@ -13,7 +13,7 @@ export class AddAssignementComponent {
   dateDeRendu!: Date;
   constructor(private assignmentService: AssignmentsService) { }
 
-  @Output() nouvelAssignment = new EventEmitter();
+
   onSubmit() {
     console.log(this.nomDevoir);
     console.log(this.dateDeRendu);
@@ -24,6 +24,6 @@ export class AddAssignementComponent {
     newAssigment.dateDeRendu = this.dateDeRendu;
     newAssigment.rendu = false;
     this.assignmentService.addAssignment(newAssigment);
-    this.nouvelAssignment.emit();
+
   }
 }

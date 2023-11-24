@@ -1,5 +1,6 @@
 export class Assignment {
-    nom!:string;
-    dateDeRendu!: Date;
-    rendu!: boolean
+    id: number = Math.floor(Math.random() * 1000);
+    nom: string = '';
+    dateDeRendu: Date = new Date();
+    rendu: boolean = false;
 }

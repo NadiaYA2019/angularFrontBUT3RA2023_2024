@@ -1,38 +1,22 @@
-<h1>{{title}}</h1>
-
-
-<!-- [ngClass]="{ rendu: assignment.rendu, nonRendu: !assignment.rendu }"
-<div *ngFor="let assignment of assignments" [style.color] = "getColor(assignment.rendu)">
-
-  <p *ngIf="assignment.rendu; else nonSoumis">
-    Devoir intitulé {{ assignment.nom }}, a rendre le
-    {{ assignment.dateDeRendu }}, soumis par l'élève : {{ assignment.rendu }}
-  </p>
-  <ng-template #nonSoumis>
-    <p>Le devoir {{ assignment.nom }} <b>n'a pas n'a pas été rendu</b>.</p>
-  </ng-template>
-</div>-->
-
-<b>{{title}}</b>
-
-<!-- [style.color] = "getColor(assignment.rendu)" -->
-<main class="container" *ngIf="!formVisible">
-  <button mat-flat-button color="accent" class="ajouterBtn" (click)="onAddAssignmentBtnClick()">
+<main class="container">
+  <!--<a routerLink="/add">-->
+  <button [routerLink]="['/add']" mat-flat-button color="accent" class="ajouterBtn">
     Ajouter Devoir
   </button>
+
   <mat-list *ngFor="let assignment of assignments" #assignments>
+    <a routerLink="/assignement/{{assignment.id}}">
+      <mat-list-item [ngClass]=" { rendu: assignment.rendu, nonRendu: !assignment.rendu }">
+        <p *ngIf="assignment.rendu; else nonSoumis">
+          Devoir intitulé {{ assignment.nom }}
+        </p>
+        <ng-template #nonSoumis>
+          <p>Le devoir {{ assignment.nom }} </p>
+        </ng-template>
 
-    <mat-list-item (click)="onAssignementClick(assignment)"
-      [ngClass]="{ rendu: assignment.rendu, nonRendu: !assignment.rendu }">
-      <p *ngIf="assignment.rendu; else nonSoumis">
-        Devoir intitulé {{ assignment.nom }}
-      </p>
-      <ng-template #nonSoumis>
-        <p>Le devoir {{ assignment.nom }} </p>
-      </ng-template>
-
-    </mat-list-item>
-    <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </a>
   </mat-list>
 
 
@@ -40,6 +24,5 @@
 
 </main>
 
-<app-component-details [assignementTransmis]="assignmentSelectionne" (deleteAssignment)="onDeleteAssignment()"
-  *ngIf="!formVisible && assignmentSelectionne"></app-component-details>
-<app-add-assignement (nouvelAssignment)="onNouvelAssignment()" *ngIf="formVisible"></app-add-assignement>
+<!-- <app-component-details *ngIf="!formVisible && assignmentSelectionne"></app-component-details> -->
+<app-add-assignement *ngIf="formVisible"></app-add-assignement>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +15,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ComponentDetailsComponent } from './assignments/component-details/component-details.component';
 import { AddAssignementComponent } from './assignments/add-assignement/add-assignement.component';
+import { RouterModule, Routes } from '@angular/router';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { routes } from "./app.routes";
 
 
 @NgModule({
@@ -23,17 +26,19 @@ import { AddAssignementComponent } from './assignments/add-assignement/add-assig
     AssignmentsComponent,
     ComponentDetailsComponent,
     AddAssignementComponent,
+    EditAssignmentComponent,
   ],
   imports: [
     BrowserModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    FormsModule, 
+    FormsModule,
     MatInputModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatListModule, MatDividerModule, MatCardModule, MatCheckboxModule
+    MatListModule, MatDividerModule, MatCardModule, MatCheckboxModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

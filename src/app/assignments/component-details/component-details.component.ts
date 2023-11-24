@@ -1,47 +1,63 @@
-import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-component-details',
   templateUrl: './component-details.component.html',
   styleUrls: ['./component-details.component.css']
 })
-export class ComponentDetailsComponent implements OnChanges {
+export class ComponentDetailsComponent implements OnInit {
 
-  @Input()
-  assignementTransmis!: Assignment | undefined;
+  constructor(
+    private assignmentService: AssignmentsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
 
-  // @Output()
-  //assignmentRendu = new EventEmitter<string>;
+  }
+  selectedAssignment: Assignment | null = null;
+  subscriptions: Subscription[] = [];
+  ngOnInit() {
 
-  @Output()
-  deleteAssignment = new EventEmitter();
+    //const id = parseInt(this.activatedRoute.snapshot.params['id'], 10);
+    this.activatedRoute.paramMap.subscribe(params => {
+      const id = +params.get('id');
+      this.assignmentService.selectAssignment(id);
 
-  constructor(private assignmentService: AssignmentsService) { }
+    });
+
+
+
+    let subscription = this.assignmentService.selectedAssignment.subscribe(
+      (selectedAssignment) => (this.selectedAssignment = selectedAssignment)
+    );
+    this.subscriptions.push(subscription);
+  }
+
+
+
 
   onAssignmentRendu() {
-    //this.assignmentRendu.emit(this.assignementTransmis.nom);
-    if (this.assignementTransmis) {
-      this.assignmentService.updateAssignment(this.assignementTransmis.nom);
+
+    if (this.selectedAssignment) {
+      this.assignmentService.updateAssignment();
+      this.router.navigate(["/home"]);
 
     }
-    //this.assignementTransmis.rendu = true;
+
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
+
 
   onDeleteAssignment() {
 
-    if (!this.assignementTransmis) return;
-    this.assignmentService.deleteAssignment(this.assignementTransmis);
+    if (!this.selectedAssignment) return;
+    this.assignmentService.deleteAssignment();
+    this.router.navigate(["/home"]);
 
-    this.deleteAssignment.emit();
 
-
-    //this.assignementTransmis = null;
   }
 
 }
