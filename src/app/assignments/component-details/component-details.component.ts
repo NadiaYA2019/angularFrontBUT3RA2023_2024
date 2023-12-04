@@ -7,10 +7,11 @@ import {
   SimpleChanges,
   OnInit,
 } from '@angular/core';
-import { Assignment } from '../../shared/models/assignment.model';
-import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Assignment } from '../assignment.model';
+import { AssignmentsService } from '../../shared/assignments.service';
+
 
 @Component({
   selector: 'app-component-details',
@@ -29,11 +30,13 @@ export class ComponentDetailsComponent implements OnInit {
     //const id = parseInt(this.activatedRoute.snapshot.params['id'], 10);
     this.activatedRoute.paramMap.subscribe((params) => {
       const id = params.get('id');
-      this.assignmentService.selectAssignment(id ? id : '');
+      if (id){
+        this.assignmentService.selectAssignment(Number(id));
+      }
     });
 
     let subscription = this.assignmentService.selectedAssignment.subscribe(
-      (selectedAssignment) => (this.selectedAssignment = selectedAssignment)
+      (selectedAssignment: any) => (this.selectedAssignment = selectedAssignment)
     );
     this.subscriptions.push(subscription);
   }
