@@ -4,25 +4,18 @@
     Ajouter Devoir
   </button>
 
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
   <mat-list *ngFor="let assignment of assignments" #assignments>
-    <a routerLink="/assignement/{{assignment.id}}">
-      <mat-list-item [ngClass]=" { rendu: assignment.rendu, nonRendu: !assignment.rendu }">
+    <a routerLink="/assignement/{{ assignment.id }}">
+      <mat-list-item [ngClass]="{ rendu: assignment.rendu, nonRendu: !assignment.rendu }">
         <p *ngIf="assignment.rendu; else nonSoumis">
-          Devoir intitulé {{ assignment.nom }}
+          {{ assignment.nom }}
         </p>
         <ng-template #nonSoumis>
-          <p>Le devoir {{ assignment.nom }} </p>
+          <p>Le devoir {{ assignment.nom }}</p>
         </ng-template>
-
       </mat-list-item>
       <mat-divider></mat-divider>
     </a>
   </mat-list>
-
-
-
-
 </main>
-
-<!-- <app-component-details *ngIf="!formVisible && assignmentSelectionne"></app-component-details> -->
-<app-add-assignement *ngIf="formVisible"></app-add-assignement>

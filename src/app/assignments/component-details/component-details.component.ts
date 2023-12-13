@@ -22,15 +22,15 @@ export class ComponentDetailsComponent implements OnInit {
     private assignmentService: AssignmentsService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
   selectedAssignment: Assignment | null = null;
   subscriptions: Subscription[] = [];
   ngOnInit() {
-    //const id = parseInt(this.activatedRoute.snapshot.params['id'], 10);
-    this.activatedRoute.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      this.assignmentService.selectAssignment(id ? id : '');
-    });
+    const id = parseInt(this.activatedRoute.snapshot.params['id'], 10);
+    //this.activatedRoute.paramMap.subscribe((params) => {
+    //const id = params.get('id');
+    this.assignmentService.selectAssignment(id);
+    //});
 
     let subscription = this.assignmentService.selectedAssignment.subscribe(
       (selectedAssignment) => (this.selectedAssignment = selectedAssignment)

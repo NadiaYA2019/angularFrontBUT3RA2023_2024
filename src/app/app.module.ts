@@ -15,10 +15,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ComponentDetailsComponent } from './assignments/component-details/component-details.component';
 import { AddAssignementComponent } from './assignments/add-assignement/add-assignement.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { routes } from "./app.routes";
-
+import { routes } from './app.routes';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TestFormComponent } from './assignments/test-form/test-form.component';
+import { AssignmentsService } from './shared/services/assignments.service';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,20 +31,30 @@ import { routes } from "./app.routes";
     ComponentDetailsComponent,
     AddAssignementComponent,
     EditAssignmentComponent,
+    TestFormComponent,
   ],
   imports: [
     BrowserModule,
     MatButtonModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatListModule, MatDividerModule, MatCardModule, MatCheckboxModule,
+    MatListModule,
+    MatDividerModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
